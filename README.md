@@ -1,6 +1,21 @@
 # Model Lip Sync siêu thật video 4k độ dài không giới hạn
 
+<table>
+<tr>
+<td width="50%">
+
 ![](assets/thl.PNG)
+
+</td>
+<td width="50%">
+
+https://github.com/psilabvn/lip-sync-latent-sync-Vietnamese/assets/output/video_out.mp4
+
+[`output/video_out.mp4`](output/video_out.mp4)
+
+</td>
+</tr>
+</table>
 
 <div align="center">
 
