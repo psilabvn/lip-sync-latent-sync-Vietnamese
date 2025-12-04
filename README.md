@@ -9,7 +9,9 @@
 </td>
 <td width="50%">
 
-<video src="output/video_out.mp4" controls width="100%"></video>
+https://github.com/user-attachments/assets/your-video-id-here
+
+*Upload `output/video_out.mp4` as an attachment to get the GitHub asset URL*
 
 </td>
 </tr>
