@@ -2,7 +2,11 @@
 
 ![](assets/thl.PNG)
 
-sample output video here: output/video_out.mp4
+## 🎬 Sample Output
+
+https://github.com/psilabvn/lip-sync-latent-sync-Vietnamese/assets/video_out.mp4
+
+*Alternatively, you can view the video file at: [output/video_out.mp4](output/video_out.mp4)*
 
 [![arXiv](https://img.shields.io/badge/arXiv-Paper-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2412.09262)
 [![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-Model-yellow)](https://huggingface.co/ByteDance/LatentSync-1.6)

@@ -18,7 +18,6 @@ __pycache__/
 wandb/
 *debug*
 /debug
-/output
 /validation
 /test
 /models/
