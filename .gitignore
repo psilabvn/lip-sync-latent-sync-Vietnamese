@@ -30,15 +30,15 @@ wandb/
 *.ckpt
 *.pt
 
-# data files
-*.mp4
-*.avi
-*.wav
-*.png
-*.jpg
-*.jpeg
-*.csv
-*.pdf
+# # data files
+# *.mp4
+# *.avi
+# *.wav
+# *.png
+# *.jpg
+# *.jpeg
+# *.csv
+# *.pdf
 
 # log files
 *.log
