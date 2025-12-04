@@ -9,9 +9,7 @@
 </td>
 <td width="50%">
 
-https://github.com/psilabvn/lip-sync-latent-sync-Vietnamese/assets/output/video_out.mp4
-
-[`output/video_out.mp4`](output/video_out.mp4)
+<video src="output/video_out.mp4" controls width="100%"></video>
 
 </td>
 </tr>
