@@ -1,6 +1,6 @@
 # Model Lip Sync siêu thật video 4k độ dài không giới hạn
 
-![](thl.PNG)
+![](assets\thl.PNG)
 
 <div align="center">
 
