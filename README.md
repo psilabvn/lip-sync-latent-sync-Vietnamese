@@ -1,23 +1,8 @@
 # Model Lip Sync siêu thật video 4k độ dài không giới hạn
 
-<table>
-<tr>
-<td width="50%">
-
 ![](assets/thl.PNG)
 
-</td>
-<td width="50%">
-
-https://github.com/user-attachments/assets/your-video-id-here
-
-*Upload `output/video_out.mp4` as an attachment to get the GitHub asset URL*
-
-</td>
-</tr>
-</table>
-
-<div align="center">
+sample output video here: output/video_out.mp4
 
 [![arXiv](https://img.shields.io/badge/arXiv-Paper-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2412.09262)
 [![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-Model-yellow)](https://huggingface.co/ByteDance/LatentSync-1.6)
