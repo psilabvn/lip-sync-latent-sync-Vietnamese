@@ -1,98 +1,57 @@
-<h1 align="center">LatentSync</h1>
+# LatentSync
 
 <div align="center">
 
 [![arXiv](https://img.shields.io/badge/arXiv-Paper-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2412.09262)
-[![arXiv](https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-Model-yellow)](https://huggingface.co/ByteDance/LatentSync-1.6)
-[![arXiv](https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-Space-yellow)](https://huggingface.co/spaces/fffiloni/LatentSync)
+[![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-Model-yellow)](https://huggingface.co/ByteDance/LatentSync-1.6)
+[![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-Space-yellow)](https://huggingface.co/spaces/fffiloni/LatentSync)
 <a href="https://replicate.com/lucataco/latentsync"><img src="https://replicate.com/lucataco/latentsync/badge" alt="Replicate"></a>
+
+*Audio-conditioned lip-sync chất lượng cao*
 
 </div>
 
-## 🔥 Updates
+---
 
-- `2025/06/11`: We released **LatentSync 1.6**, which is trained on 512 $\times$ 512 resolution videos to mitigate the blurriness problem. Watch the demo [here](docs/changelog_v1.6.md).
+## 📖 Giới thiệu
 
-- `2025/03/14`: We released **LatentSync 1.5**, which **(1)** improves temporal consistency via adding temporal layer, **(2)** improves performance on Chinese videos and **(3)** reduces the VRAM requirement of the stage2 training to **20 GB** through a series of optimizations. Learn more details [here](docs/changelog_v1.5.md).
+**LatentSync** là một phương pháp lip-sync end-to-end dựa trên audio-conditioned latent diffusion models, không sử dụng bất kỳ biểu diễn chuyển động trung gian nào. Framework này tận dụng khả năng mạnh mẽ của Stable Diffusion để mô hình hóa trực tiếp mối tương quan phức tạp giữa âm thanh và hình ảnh.
 
-## 📖 Introduction
+### ✨ Tính năng nổi bật
 
-We present *LatentSync*, an end-to-end lip-sync method based on audio-conditioned latent diffusion models without any intermediate motion representation, diverging from previous diffusion-based lip-sync methods based on pixel-space diffusion or two-stage generation. Our framework can leverage the powerful capabilities of Stable Diffusion to directly model complex audio-visual correlations.
+- 🎭 **Chất lượng lip-sync cao**: Đồng bộ môi tự nhiên và chính xác
+- 🚀 **Dễ dàng sử dụng**: Hỗ trợ cả Gradio app và command line
+- 🔧 **Linh hoạt**: Điều chỉnh các tham số để tối ưu kết quả
+- 💯 **Hiệu suất tốt**: Hỗ trợ nhiều độ phân giải và tối ưu VRAM
 
-## 🏗️ Framework
+### 🖥️ Yêu cầu hệ thống
 
-<p align="center">
-<img src="docs/framework.png" width=100%>
-<p>
+- **Python**: 3.10
+- **CUDA**: 12.4 (khuyến nghị cho GPU acceleration)
+- **GPU VRAM**: 
+  - LatentSync 1.5: Tối thiểu 8GB
+  - LatentSync 1.6: Tối thiểu 18GB
 
-LatentSync uses the [Whisper](https://github.com/openai/whisper) to convert melspectrogram into audio embeddings, which are then integrated into the U-Net via cross-attention layers. The reference and masked frames are channel-wise concatenated with noised latents as the input of U-Net. In the training process, we use a one-step method to get estimated clean latents from predicted noises, which are then decoded to obtain the estimated clean frames. The TREPA, [LPIPS](https://arxiv.org/abs/1801.03924) and [SyncNet](https://www.robots.ox.ac.uk/~vgg/publications/2016/Chung16a/chung16a.pdf) losses are added in the pixel space.
+## 🔧 Cài đặt
 
-## 🎬 Demo
+### 1. Tạo môi trường ảo
+```bash
+# Linux/Mac
+python3.10 -m venv venv
+source venv/bin/activate
 
-<table class="center">
-  <tr style="font-weight: bolder;text-align:center;">
-        <td width="50%"><b>Original video</b></td>
-        <td width="50%"><b>Lip-synced video</b></td>
-  </tr>
-  <tr>
-    <td>
-      <video src=https://github.com/user-attachments/assets/b778e3c3-ba25-455d-bdf3-d89db0aa75f4 controls preload></video>
-    </td>
-    <td>
-      <video src=https://github.com/user-attachments/assets/ac791682-1541-4e6a-aa11-edd9427b977e controls preload></video>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <video src=https://github.com/user-attachments/assets/6d4f4afd-6547-428d-8484-09dc53a19ecf controls preload></video>
-    </td>
-    <td>
-      <video src=https://github.com/user-attachments/assets/b4723d08-c1d4-4237-8251-09c43eb77a6a controls preload></video>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <video src=https://github.com/user-attachments/assets/fb4dc4c1-cc98-43dd-a211-1ff8f843fcfa controls preload></video>
-    </td>
-    <td>
-      <video src=https://github.com/user-attachments/assets/7c6ca513-d068-4aa9-8a82-4dfd9063ac4e controls preload></video>
-    </td>
-  </tr>
-  <tr>
-    <td width=300px>
-      <video src=https://github.com/user-attachments/assets/0756acef-2f43-4b66-90ba-6dc1d1216904 controls preload></video>
-    </td>
-    <td width=300px>
-      <video src=https://github.com/user-attachments/assets/663ff13d-d716-4a35-8faa-9dcfe955e6a5 controls preload></video>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <video src=https://github.com/user-attachments/assets/0f7f9845-68b2-4165-bd08-c7bbe01a0e52 controls preload></video>
-    </td>
-    <td>
-      <video src=https://github.com/user-attachments/assets/c34fe89d-0c09-4de3-8601-3d01229a69e3 controls preload></video>
-    </td>
-  </tr>
-</table>
+# Windows
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+```
 
-(Photorealistic videos are filmed by contracted models, and anime videos are from [VASA-1](https://www.microsoft.com/en-us/research/project/vasa-1/))
-
-## 📑 Open-source Plan
-
-- [x] Inference code and checkpoints
-- [x] Data processing pipeline
-- [x] Training code
-
-## 🔧 Setting up the Environment
-
-Install the required packages and download the checkpoints via:
-
+### 2. Cài đặt dependencies và tải checkpoints
 ```bash
 source setup_env.sh
 ```
 
-If the download is successful, the checkpoints should appear as follows:
+### 3. Kiểm tra cấu trúc checkpoints
+Sau khi cài đặt thành công, checkpoints sẽ có cấu trúc như sau:
 
 ```
 ./checkpoints/
@@ -101,111 +60,126 @@ If the download is successful, the checkpoints should appear as follows:
 |   `-- tiny.pt
 ```
 
-Or you can download `latentsync_unet.pt` and `tiny.pt` manually from our [HuggingFace repo](https://huggingface.co/ByteDance/LatentSync-1.6)
+**Lưu ý:** Bạn cũng có thể tải `latentsync_unet.pt` và `tiny.pt` thủ công từ [HuggingFace repo](https://huggingface.co/ByteDance/LatentSync-1.6)
 
-## 🚀 Inference
+## 🚀 Hướng dẫn sử dụng
 
-Minimum VRAM for inference:
+### Phương pháp 1: Gradio App (Giao diện đồ họa)
 
-- **8 GB** with LatentSync 1.5
-- **18 GB** with LatentSync 1.6
-
-There are two ways to perform inference:
-
-### 1. Gradio App
-
-Run the Gradio app for inference:
+Chạy ứng dụng Gradio để sử dụng giao diện đồ họa:
 
 ```bash
 python gradio_app.py
 ```
 
-### 2. Command Line Interface
+### Phương pháp 2: Command Line Interface
 
-Run the script for inference:
-
+#### Sử dụng script có sẵn:
 ```bash
 ./inference.sh
 ```
 
-You can try adjusting the following inference parameters to achieve better results:
+#### Chạy trực tiếp với một dòng lệnh:
+```bash
+python -m scripts.inference --unet_config_path "configs/unet/stage2_512.yaml" --inference_ckpt_path "checkpoints/latentsync_unet.pt" --inference_steps 20 --guidance_scale 1.5 --enable_deepcache --video_path "assets/thl2_trimmed.mp4" --audio_path "assets/thl_trimmed.wav" --video_out_path "video_out.mp4"
+```
 
-- `inference_steps` [20-50]: A higher value improves visual quality but slows down the generation speed.
-- `guidance_scale` [1.0-3.0]: A higher value improves lip-sync accuracy but may cause the video distortion or jitter.
+### ⚙️ Tùy chỉnh tham số inference
+
+Điều chỉnh các tham số sau để đạt kết quả tốt nhất:
+
+- **`inference_steps`** [20-50]: Giá trị cao hơn cải thiện chất lượng hình ảnh nhưng chậm hơn
+- **`guidance_scale`** [1.0-3.0]: Giá trị cao hơn cải thiện độ chính xác lip-sync nhưng có thể gây méo hoặc giật hình
+- **`enable_deepcache`**: Bật để tăng tốc độ inference
 
 ## 🔄 Data Processing Pipeline
 
-The complete data processing pipeline includes the following steps:
+Pipeline xử lý dữ liệu hoàn chỉnh bao gồm các bước sau:
 
-1. Remove the broken video files.
-2. Resample the video FPS to 25, and resample the audio to 16000 Hz.
-3. Scene detect via [PySceneDetect](https://github.com/Breakthrough/PySceneDetect).
-4. Split each video into 5-10 second segments.
-5. Affine transform the faces according to the landmarks detected by [InsightFace](https://github.com/deepinsight/insightface), then resize to 256 $\times$ 256.
-6. Remove videos with [sync confidence score](https://www.robots.ox.ac.uk/~vgg/publications/2016/Chung16a/chung16a.pdf) lower than 3, and adjust the audio-visual offset to 0.
-7. Calculate [hyperIQA](https://openaccess.thecvf.com/content_CVPR_2020/papers/Su_Blindly_Assess_Image_Quality_in_the_Wild_Guided_by_a_CVPR_2020_paper.pdf) score, and remove videos with scores lower than 40.
+1. Loại bỏ các file video bị lỗi
+2. Resample video FPS về 25, và resample audio về 16000 Hz
+3. Phát hiện cảnh qua [PySceneDetect](https://github.com/Breakthrough/PySceneDetect)
+4. Chia mỗi video thành các đoạn 5-10 giây
+5. Affine transform khuôn mặt dựa trên landmarks từ [InsightFace](https://github.com/deepinsight/insightface), resize về 256×256
+6. Loại bỏ video có [sync confidence score](https://www.robots.ox.ac.uk/~vgg/publications/2016/Chung16a/chung16a.pdf) thấp hơn 3, điều chỉnh audio-visual offset về 0
+7. Tính [hyperIQA](https://openaccess.thecvf.com/content_CVPR_2020/papers/Su_Blindly_Assess_Image_Quality_in_the_Wild_Guided_by_a_CVPR_2020_paper.pdf) score, loại bỏ video có điểm thấp hơn 40
 
-Run the script to execute the data processing pipeline:
+Chạy script để thực thi pipeline:
 
 ```bash
 ./data_processing_pipeline.sh
 ```
 
-You should change the parameter `input_dir` in the script to specify the data directory to be processed. The processed videos will be saved in the `high_visual_quality` directory. Each step will generate a new directory to prevent the need to redo the entire pipeline in case the process is interrupted by an unexpected error.
+**Lưu ý:** Thay đổi tham số `input_dir` trong script để chỉ định thư mục dữ liệu cần xử lý.
 
-## 🏋️‍♂️ Training U-Net
+## 🏋️‍♂️ Training
 
-Before training, you should process the data as described above. We released a pretrained SyncNet with 94% accuracy on both VoxCeleb2 and HDTF datasets for the supervision of U-Net training. You can execute the following command to download this SyncNet checkpoint:
+### Training U-Net
+
+#### Chuẩn bị
+
+Trước khi training, bạn cần xử lý dữ liệu như mô tả ở phần trên. Tải pretrained SyncNet checkpoint:
 
 ```bash
 huggingface-cli download ByteDance/LatentSync-1.6 stable_syncnet.pt --local-dir checkpoints
 ```
 
-If all the preparations are complete, you can train the U-Net with the following script:
+#### Bắt đầu training
 
 ```bash
 ./train_unet.sh
 ```
 
-We prepared several UNet configuration files in the ``configs/unet`` directory, each corresponding to a specific training setup:
+#### Các config file có sẵn
 
-- `stage1.yaml`: Stage1 training, requires **23 GB** VRAM.
-- `stage2.yaml`: Stage2 training with optimal performance, requires **30 GB** VRAM.
-- `stage2_efficient.yaml`: Efficient Stage 2 training, requires **20 GB** VRAM. It may lead to slight degradation in visual quality and temporal consistency compared with `stage2.yaml`, suitable for users with consumer-grade GPUs, such as the RTX 3090.
-- `stage1_512.yaml`: Stage1 training on 512 $\times$ 512 resolution videos, requires **30 GB** VRAM.
-- `stage2_512.yaml`: Stage2 training on 512 $\times$ 512 resolution videos, requires **55 GB** VRAM.
+Thư mục `configs/unet` chứa nhiều file cấu hình:
 
-Also remember to change the parameters in U-Net config file to specify the data directory, checkpoint save path, and other training hyperparameters. For convenience, we prepared a script for writing a data files list. Run the following command:
+- **`stage1.yaml`**: Stage1 training, yêu cầu **23 GB** VRAM
+- **`stage2.yaml`**: Stage2 training hiệu suất tối ưu, yêu cầu **30 GB** VRAM
+- **`stage2_efficient.yaml`**: Stage2 hiệu quả, yêu cầu **20 GB** VRAM (phù hợp RTX 3090)
+- **`stage1_512.yaml`**: Stage1 với độ phân giải 512×512, yêu cầu **30 GB** VRAM
+- **`stage2_512.yaml`**: Stage2 với độ phân giải 512×512, yêu cầu **55 GB** VRAM
+
+#### Tạo danh sách file dữ liệu
 
 ```bash
 python -m tools.write_fileslist
 ```
 
-## 🏋️‍♂️ Training SyncNet
+### Training SyncNet
 
-In case you want to train SyncNet on your own datasets, you can run the following script. The data processing pipeline for SyncNet is the same as U-Net. 
+Nếu muốn train SyncNet trên dataset riêng:
 
 ```bash
 ./train_syncnet.sh
 ```
 
-After `validations_steps` training, the loss charts will be saved in `train_output_dir`. They contain both the training and validation loss. If you want to customize the architecture of SyncNet for different image resolutions and input frame lengths, please follow the [guide](docs/syncnet_arch.md).
-
 ## 📊 Evaluation
 
-You can evaluate the [sync confidence score](https://www.robots.ox.ac.uk/~vgg/publications/2016/Chung16a/chung16a.pdf) of a generated video by running the following script:
+### Đánh giá sync confidence score
 
 ```bash
 ./eval/eval_sync_conf.sh
 ```
 
-You can evaluate the accuracy of SyncNet on a dataset by running the following script:
+### Đánh giá độ chính xác SyncNet
 
 ```bash
 ./eval/eval_syncnet_acc.sh
 ```
 
-Note that our released SyncNet is trained on data processed through our data processing pipeline, which includes special operations such as affine transformation and audio-visual adjustment. Therefore, before evaluation, the test data must first be processed using the provided pipeline.
+**Lưu ý:** Dữ liệu test cần được xử lý qua pipeline trước khi đánh giá.
+
+## 🔥 Updates
+
+- `2025/06/11`: Phát hành **LatentSync 1.6** - train trên video 512×512 để giảm độ mờ. Xem demo [tại đây](docs/changelog_v1.6.md)
+- `2025/03/14`: Phát hành **LatentSync 1.5** - cải thiện tính nhất quán thời gian, hiệu suất trên video tiếng Trung, và giảm VRAM xuống **20 GB**. Chi tiết [tại đây](docs/changelog_v1.5.md)
+
+## 📑 Open-source Plan
+
+- [x] Inference code và checkpoints
+- [x] Data processing pipeline
+- [x] Training code
 
 ## 🙏 Acknowledgement
 

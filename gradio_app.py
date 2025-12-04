@@ -35,6 +35,10 @@ def process_video(
         {
             "guidance_scale": guidance_scale,
             "inference_steps": inference_steps,
+            "fp16": True,                    # Enable half precision
+            "batch_size": 2,                 # Reduce batch size
+            "chunk_size": 16,                # Smaller chunks
+            "enable_xformers": True,         # Memory-efficient attention
         }
     )
 
@@ -51,6 +55,7 @@ def process_video(
     except Exception as e:
         print(f"Error during processing: {str(e)}")
         raise gr.Error(f"Error during processing: {str(e)}")
+
 
 
 def create_args(
